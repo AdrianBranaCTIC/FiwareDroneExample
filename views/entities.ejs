@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= entityType %> Entities</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-5"><%= entityType %> Entities</h1>
+    <ul class="list-group">
+      <% entities.forEach(entity => { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-id="<%= entity.id %>" data-type="<%= entity.type %>">
+          <%= entity.id %>
+          <% if (entity.type === 'Drone') { %>
+            <% if (entity.state === 'Active') { %>
+              <span class="badge badge-success badge-pill">Active</span>
+              <button class="view-route-btn">View assigned route</button>
+            <% } else if (entity.state === 'Inactive') { %>
+              <span class="badge badge-danger badge-pill">Inactive</span>
+            <% } %>
+          <% } %>
+          <ul class="attributes">
+            <% Object.keys(entity).forEach(attribute => { %>
+              <li><strong><%= attribute %>:</strong> 
+                <% if (typeof entity[attribute] === 'object') { %>
+                  <ul>
+                    <% Object.keys(entity[attribute]).forEach(subAttribute => { %>
+                      <li><strong><%= subAttribute %>:</strong> <%= entity[attribute][subAttribute] %></li>
+                    <% }); %>
+                  </ul>
+                <% } else { %>
+                  <%= entity[attribute] %>
+                <% } %>
+              </li>
+            <% }); %>
+          </ul>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var entityItems = document.querySelectorAll('.list-group-item'); // Corrected the class name
+  
+      entityItems.forEach(function (item) {
+        var viewRouteBtn = item.querySelector('.view-route-btn');
+  
+        if (viewRouteBtn) {
+          console.log('Button found', viewRouteBtn); // Corrected variable name
+          viewRouteBtn.addEventListener('click', function (event) {
+            event.stopPropagation(); // Avoid the click on the button from propagating to the li
+            var entityId = item.getAttribute('data-id');
+            var entityType = item.getAttribute('data-type');
+            var redirectUrl = '/map/' + entityId;
+  
+            console.log('Redirecting to', redirectUrl); // Debug log
+  
+            window.location.href = redirectUrl;
+          });
+        }
+  
+        item.addEventListener('click', function () {
+          var attributes = this.querySelector('.attributes');
+          attributes.style.display = (attributes.style.display === 'none' || attributes.style.display === '') ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
+  
+</body>
+
+</html>

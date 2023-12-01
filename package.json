@@ -1,0 +1,24 @@
+{
+  "name": "controlincendios",
+  "version": "1.0.0",
+  "description": "Proyecto de prueba para simular un ejemplo sencillo de uso de la plataforma Fiware con un sistema de control de incendios mediante drones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AdrianBranaFdez",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.1",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "har-validator": "^5.1.5",
+    "iotagent-node-lib": "^3.4.4",
+    "leaflet": "^1.9.4",
+    "mqtt": "^5.2.2",
+    "should": "^13.2.3",
+    "socket.io-client": "^4.7.2",
+    "uuid": "^9.0.1"
+  }
+}

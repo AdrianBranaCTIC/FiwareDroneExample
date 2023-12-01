@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-5">Welcome to Fiware</h1>
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <button onclick="redirectToEntities()" class="btn btn-primary btn-block">View Entities</button>
+      </div>
+      <div class="col-md-4">
+        <button onclick="redirectToIoTDevices()" class="btn btn-secondary btn-block">View IoT Devices</button>
+      </div>
+      <div class="col-md-4">
+        <button onclick="redirectToMonitor()" class="btn btn-success btn-block">View Monitor</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <button onclick="redirectToMapHub()" class="btn btn-danger btn-block special-button">Drones flight control</button>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    body {
+      background: #f5f5f5;
+    }
+
+    .special-button {
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .btn {
+      margin-top: 1em;
+      padding: 1em;
+      border-radius: 0.5em;
+    }
+  </style>
+  
+  <script>
+    function redirectToEntities() {
+      window.location.href = '/entities';
+    }
+  
+    function redirectToIoTDevices() {
+      window.location.href = '/iotdevices';
+    }
+  
+    function redirectToMonitor() {
+      window.location.href = '/monitor';
+    }
+  
+    function redirectToMapHub() {
+      window.location.href = '/maphub';
+    }
+  </script>
+</body>
+
+</html>

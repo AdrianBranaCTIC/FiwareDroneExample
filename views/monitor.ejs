@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Monitor</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-5">Notification Monitor</h1>
+    <div id="specific-notifications" class="mb-5"></div>
+    <h2 class="text-center mb-3">Other Notifications</h2>
+    <ul id="other-notifications" class="list-group"></ul>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // Connect to the WebSocket server
+    const socket = io();
+
+    // Get the notification list elements
+    const specificNotifications = document.getElementById('specific-notifications');
+    const otherNotifications = document.getElementById('other-notifications');
+
+    // Define the specific types
+    const specificTypes = ['GPS', 'TemperatureSensor', 'GasSensor', 'UVSensor', 'WindSpeedSensor', 'HumiditySensor'];
+    const specificElements = {};
+
+    // Create a section for each specific type
+    specificTypes.forEach(type => {
+  const section = document.createElement('div');
+  section.id = type;
+  section.innerHTML = `<h4 class="text-center mb-3">${type} Notifications</h4><ul class="list-group"></ul>`;
+  specificNotifications.appendChild(section);
+  specificElements[type] = section.querySelector('ul');
+});
+
+    // Handle received notification events
+    socket.on('notificationMonitor', (notification) => {
+      const type = notification.data[0].type;
+
+      // Check if the type is specific
+      if (specificTypes.includes(type)) {
+        // Update the specific element
+        specificElements[type].innerHTML = '';
+        specificElements[type].appendChild(createNotificationElement(notification));
+      } else {
+        // Add the notification to the other notifications
+        otherNotifications.insertBefore(createNotificationElement(notification), otherNotifications.firstChild);
+
+        // Limit the other notifications to 3
+        while (otherNotifications.children.length > 3) {
+          otherNotifications.removeChild(otherNotifications.lastChild);
+        }
+      }
+    });
+
+    // Function to create a notification element
+    function createNotificationElement(notification) {
+      const notificationElement = document.createElement('li');
+      notificationElement.className = 'list-group-item';
+
+      const notificationContent = document.createElement('pre');
+      notificationContent.textContent = JSON.stringify(notification.data[0], (key, value) => key === 'metadata' ? undefined : value, 2);
+      notificationElement.appendChild(notificationContent);
+
+      return notificationElement;
+    }
+  </script>
+</body>
+
+</html>

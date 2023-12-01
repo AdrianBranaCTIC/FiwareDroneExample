@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <title>Map update test</title>
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+   <!-- Para icono del avión-->
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="stylesheet" type="text/css" href="https://masajid390.github.io/BeautifyMarker/leaflet-beautify-marker-icon.css">
+   <script type="text/javascript" src="https://masajid390.github.io/BeautifyMarker/leaflet-beautify-marker-icon.js"></script>
+
+   <link rel="stylesheet" href="https://maxwell-ilai.github.io/Leaflet.SidePanel/dist/leaflet-sidepanel.css" />
+   <script src="https://maxwell-ilai.github.io/Leaflet.SidePanel/dist/leaflet-sidepanel.min.js"></script>
+
+   <style>
+      body {
+         padding: 0;
+         margin: 0;
+      }
+
+      html, body, #mapid {
+         height: 100%;
+         width: 100%;
+      }
+   </style>
+</head>
+<body>
+   <div id="mapid">
+      <!-- Side Panel left -->
+      <div id="mySidepanelLeft" class="sidepanel" aria-label="side panel" aria-hidden="false">
+         <div class="sidepanel-inner-wrapper">
+            <nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+               <ul class="sidepanel-tabs">
+                  <li class="sidepanel-tab">
+                     <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                           <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                           <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+            <div class="sidepanel-content-wrapper">
+               <div class="sidepanel-content">
+                  <div class="sidepanel-tab-content" data-tab-content="tab-1">
+                     <h4>Drones</h4>
+                     <div id="drone-list"></div>                    
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="sidepanel-toggle-container">
+            <button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
+         </div>
+      </div>
+
+   </div>
+
+   <script>
+      // Creación de mapa con leaflet
+
+      // Se crea un mapa centrado en Peón
+      var map = L.map('mapid').setView([43.51163504035255, -5.528577118724974], 13);
+
+      L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+         maxZoom: 20,
+         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+      }).addTo(map);
+
+      // Capa para mostrar los drones
+      var droneLayer = L.layerGroup().addTo(map);
+
+      // Capa para mostrar las líneas
+      var lineLayer = L.layerGroup().addTo(map);
+
+      var last_positions = {};
+
+      var drones = [];
+
+      // Function to add an ID if it's not already in the Set
+      function addDrone(name, lat, long) {
+         var drone = drones.find(d => d.Name === name);
+         if (!drone) {
+            drones.push({ Name: name, Latitude: lat, Longitude: long });
+         }
+         else {
+            drone.Latitude = lat;
+            drone.Longitude = long;
+         }
+         console.log(drones);
+      }
+
+   </script>
+
+<script src="/socket.io/socket.io.js"></script>
+
+   <script>
+      var socket = io();
+
+      // Se registra un callback para recibir un mensaje
+      socket.on("notificationMap", function (notificationData) {
+
+         // Borrar marcadores actuales
+         droneLayer.clearLayers();
+
+         // Tipo de icono
+         var options = {
+            icon: "plane",
+            borderColor: '#b3334f',
+            textColor: '#b3334f'
+         };
+
+         var list = document.getElementById("drone-list");
+         list.replaceChildren();
+
+
+         const Name = notificationData.data[0].refDrone.value;
+         const Latitude = notificationData.data[0].latitude.value;
+         const Longitude = notificationData.data[0].longitude.value;
+
+         addDrone(Name, Latitude, Longitude);
+
+         for(var i = 0; i < drones.length; i++){
+
+            // Dibujar icono sobre la posición del dron
+            L.marker([drones[i].Latitude, drones[i].Longitude], {
+               icon: L.BeautifyIcon.icon(options),
+               draggable: false
+            }).addTo(droneLayer).bindPopup(drones[i].Name);
+
+            // Debug: Log the current drone's last position and current position
+            console.log(`Last position of ${drones[i].Name}:`, last_positions[drones[i].Name]);
+            console.log(`Current position of ${drones[i].Name}:`, drones[i]);
+
+            // Dibujar una línea desde la última posición conocida de ese dron
+            if (last_positions[drones[i].Name] !== undefined) {
+
+               // Create a new object with the same values as the drone's current position
+               const lastPositionCopy = Object.assign({}, last_positions[drones[i].Name]);
+
+               pts = [
+                  [lastPositionCopy.Latitude, lastPositionCopy.Longitude],
+                  [drones[i].Latitude, drones[i].Longitude]
+               ];
+               var visual_points = L.polyline(pts, { color: "#FF2C2C" }).addTo(lineLayer);
+            }
+            last_positions[drones[i].Name] =Object.assign({}, drones[i]);
+
+            var tagDrone = document.createElement("h5");
+            var text = document.createTextNode(drones[i].Name);
+            tagDrone.appendChild(text);
+            list.appendChild(tagDrone);
+
+            var tagInfo = document.createElement("p");
+            var text = document.createTextNode(`Lat ${drones[i].Latitude}, Long ${drones[i].Longitude}`);
+            tagInfo.appendChild(text);
+            list.appendChild(tagInfo);
+         }
+        
+            
+         console.log(notificationData);
+      });
+   
+
+
+      const sidepanelLeft = L.control.sidepanel('mySidepanelLeft', {
+         tabsPosition: 'left',
+         startTab: 'tab-1'
+      }).addTo(map);
+
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body>
+   <div id="mapid" style="height: 100vh;"></div>
+   <script>
+    // Parse the routePoints JSON string back to an array
+    var routePoints = JSON.parse('<%- JSON.stringify(routePoints) %>');
+
+    // Log the routePoints array for debugging
+    console.log(routePoints);
+
+    // Create a map centered on Peón
+    var map = L.map('mapid').setView([routePoints[0].latitude, routePoints[0].longitude], 13);
+ 
+     // Use OpenStreetMap tile layer
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+       maxZoom: 19,
+       attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+     }).addTo(map);
+ 
+     // Layer to display the drones
+     var droneLayer = L.layerGroup().addTo(map);
+ 
+     // Iterate through routePoints and add markers
+     routePoints.forEach(function(point) {
+       var Latitude = point.latitude;
+       var Longitude = point.longitude;
+ 
+       // Log the latitude and longitude for debugging
+       console.log('Latitude: ' + Latitude + ', Longitude: ' + Longitude);
+
+       // Draw a marker on the drone's position
+       L.marker([Latitude, Longitude]).addTo(droneLayer).bindPopup(point.id);
+     });
+  </script>
+</body>
+</html>

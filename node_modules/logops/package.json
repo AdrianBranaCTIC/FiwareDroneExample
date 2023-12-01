@@ -1,0 +1,53 @@
+{
+  "name": "logops",
+  "description": "Simple and performant nodejs JSON logger",
+  "version": "2.1.2",
+  "homepage": "https://github.com/telefonicaid/logops",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Javier Mendiara Cañardo",
+    "email": "javier.mendiaracanardo@telefonica.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:telefonicaid/logops.git"
+  },
+  "bugs": {
+    "url": "https://github.com/telefonicaid/logops/issues"
+  },
+  "main": "lib/logops",
+  "typings": "./lib/logops.d.ts",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint lib && tslint './{lib,test}/**/*.ts'",
+    "test": "nyc mocha -R spec test/environment.js 'test/**/*.spec.js' && npm run test:ts",
+    "test:ts": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.42",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.1.0",
+    "mocha": "^6.0.2",
+    "nyc": "14.1.1",
+    "sinon": "^7.4.1",
+    "sinon-chai": "^3.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-typings": "^0.3.1",
+    "typescript": "^4.5.4"
+  },
+  "keywords": [
+    "logger",
+    "simple",
+    "performant"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "lodash": "^4.17.15",
+    "safe-json-stringify": "^1.2.0",
+    "serr": "^1.0.1"
+  }
+}

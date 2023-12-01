@@ -1,0 +1,143 @@
+<!-- listIoT.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Devices</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      padding: 20px 0;
+      background-color: #fff;
+      margin: 0;
+    }
+
+    .sensor-container {
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #555;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .device-item {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .device-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .status-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .status-ok {
+      background-color: #4caf50;
+    }
+
+    .status-error {
+      background-color: #f44336;
+    }
+
+    strong {
+      color: #333;
+    }
+
+    p {
+      color: #777;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>IoT Devices</h1>
+
+  <% types.forEach(type => { %>
+    <div class="sensor-container">
+      <h2><%= type %></h2>
+
+      <% if (devices[type] && devices[type].length > 0) { %>
+        <ul>
+          <% devices[type].forEach(device => { %>
+            <li class="device-item">
+              <div id="status-circle-<%= device.id %>" class="status-circle <%= device.status === 'OK' ? 'status-ok' : 'status-error' %>"></div>
+              <%= device.id %> | <span id="status-text-<%= device.id %>"><strong><%= device.status %></strong></span>
+              <% if (type !== 'CameraIR' && type !== 'CameraRGB' && type !== 'Lidar' && type !== 'GPS') { %>
+                | Lectura: <span id="reading-text-<%= device.id %>"><strong><%= device.reading %></strong></span>
+              <% } %>
+            </li>
+            
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>No hay dispositivos para este tipo.</p>
+      <% } %>
+    </div>
+  <% }); %>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('notificationIoT', (notificationData) => {
+      // Manejar la actualización del estado aquí
+      console.log('Notificación recibida:', notificationData);
+
+      // Actualizar la vista según la notificación
+      const deviceStatus = notificationData.data[0].status.value;
+      const deviceId = notificationData.data[0].id;
+      const deviceReading = notificationData.data[0].reading.value;
+
+      const statusCircle = document.getElementById(`status-circle-${deviceId}`);
+      if (statusCircle) {
+        statusCircle.className = `status-circle ${deviceStatus === 'OK' ? 'status-ok' : 'status-error'}`;
+      }
+
+      // Actualizar el texto del estado
+      const statusText = document.getElementById(`status-text-${deviceId}`);
+      if (statusText) {
+        statusText.innerText = deviceStatus;
+      }
+
+      // Actualizar el texto del reading
+      const readingText = document.getElementById(`reading-text-${deviceId}`);
+      if (readingText) {
+        readingText.innerText = deviceReading;
+      }
+    });
+  </script>
+
+</body>
+</html>
