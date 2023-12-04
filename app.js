@@ -7,7 +7,6 @@ const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 
-const ResponseModel = require('./models/ResponseModel');
 const initializeIoT = require('./testIoT/initializeIoT');
 
 const app = express();
@@ -199,7 +198,6 @@ app.get('/maphub', async (req, res) => {
         Longitude: resp.longitude
       };
     });
-    //const drones = response.data.map(resp => ResponseModel.format(resp));
     console.log(drones);
     res.render('maphub', { drones }); // Pass the drones as data to the maphub.ejs view
   } catch (error) {
