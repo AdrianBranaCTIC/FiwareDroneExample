@@ -23,10 +23,6 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Configuración de la vista
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 // Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
