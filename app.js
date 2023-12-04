@@ -159,8 +159,6 @@ app.get('/map/:droneId', async (req, res) => {
             longitude: resp.location.coordinates[1]
           };
         });
-        //console.log(JSON.stringify(routePoints, null, 2));
-        //console.log(routePoints);
 
         res.render('map', { routePoints, droneId }); // Pasa las entidades como un objeto con los puntos de ruta
     } catch (error) {
@@ -179,7 +177,6 @@ app.post('/maphub', (req, res) => {
       // Enviar la notificación a la vista monitor.ejs
       io.emit('notificationMap', notificationData);
     }
-    
     res.status(200).send('Notificación recibida MapHub');
   } catch (error) {
     next(error);
@@ -204,7 +201,6 @@ app.get('/maphub', async (req, res) => {
     });
       //const drones = response.data.map(resp => ResponseModel.format(resp));
       console.log(drones);
-
       res.render('maphub', { drones }); // Pass the drones as data to the maphub.ejs view
   } catch (error) {
     next(error);
