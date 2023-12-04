@@ -121,7 +121,7 @@ app.get('/entities', async (req, res) => {
   try {
     const response = await axios.get(`${basePath}/types?options=values`);
     const types = response.data;
-    res.render('listEntities', { types});
+    res.render('listEntities', { types });
   } catch (error) {
     next(error);
   }
@@ -141,29 +141,29 @@ app.get('/entities/:type', async (req, res) => {
 
 // Ruta para mostrar el mapa de puntos de ruta de un drone
 app.get('/map/:droneId', async (req, res) => {
-    const droneId = req.params.droneId;
-    try {
-        const url = `${basePath}/entities?options=keyValues`;
-        const params = {
-            q: 'refDrone=='+droneId,
-            options: 'keyValues',
-            attrs: 'location',
-            type: 'RoutePoint'
-        };
+  const droneId = req.params.droneId;
+  try {
+    const url = `${basePath}/entities?options=keyValues`;
+    const params = {
+      q: 'refDrone==' + droneId,
+      options: 'keyValues',
+      attrs: 'location',
+      type: 'RoutePoint'
+    };
 
-        const response = await axios.get(url, { params });
-        const routePoints = response.data.map(resp => {
-          return {
-            id: resp.id,
-            latitude: resp.location.coordinates[0],
-            longitude: resp.location.coordinates[1]
-          };
-        });
+    const response = await axios.get(url, { params });
+    const routePoints = response.data.map(resp => {
+      return {
+        id: resp.id,
+        latitude: resp.location.coordinates[0],
+        longitude: resp.location.coordinates[1]
+      };
+    });
 
-        res.render('map', { routePoints, droneId }); // Pasa las entidades como un objeto con los puntos de ruta
-    } catch (error) {
-      next(error);
-    }
+    res.render('map', { routePoints, droneId }); // Pasa las entidades como un objeto con los puntos de ruta
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Ruta para recibir notificaciones POST en /maphub
@@ -172,7 +172,7 @@ app.post('/maphub', (req, res) => {
     const notificationData = req.body;
 
     // Check if the notification is intended for /maphub
-    if (notificationData.type="GPS") {
+    if (notificationData.type = "GPS") {
       console.log('Notificación recibida MapHub:', notificationData);
       // Enviar la notificación a la vista monitor.ejs
       io.emit('notificationMap', notificationData);
@@ -199,9 +199,9 @@ app.get('/maphub', async (req, res) => {
         Longitude: resp.longitude
       };
     });
-      //const drones = response.data.map(resp => ResponseModel.format(resp));
-      console.log(drones);
-      res.render('maphub', { drones }); // Pass the drones as data to the maphub.ejs view
+    //const drones = response.data.map(resp => ResponseModel.format(resp));
+    console.log(drones);
+    res.render('maphub', { drones }); // Pass the drones as data to the maphub.ejs view
   } catch (error) {
     next(error);
   }
