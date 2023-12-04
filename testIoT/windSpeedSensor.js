@@ -1,5 +1,7 @@
 const http = require('http');
 
+let windSpeedSimulationInterval;
+
 function simulateWindSpeed() {
   const minWindSpeed = 0;
   const maxWindSpeed = 10;
@@ -42,11 +44,21 @@ function sendWindSpeedReading(windSpeed) {
 }
 
 function startWindSpeedSimulation() {
-  setInterval(() => {
+  windSpeedSimulationInterval = setInterval(() => {
     const windSpeed = simulateWindSpeed();
     console.log(`Wind Speed: ${windSpeed.toFixed(2)} m/s`);
     sendWindSpeedReading(windSpeed);
   }, 12000);
 }
 
-module.exports = startWindSpeedSimulation;
+function stopWindSpeedSimulation() {
+  if (windSpeedSimulationInterval) {
+    clearInterval(windSpeedSimulationInterval);
+    windSpeedSimulationInterval = null;
+    console.log('Wind Speed Simulation stopped.');
+  } else {
+    console.log('Wind Speed Simulation is not currently running.');
+  }
+}
+
+module.exports = { startWindSpeedSimulation, stopWindSpeedSimulation };

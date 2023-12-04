@@ -1,5 +1,7 @@
 const http = require('http');
 
+let humiditySimulationInterval;
+
 function simulateHumidityReading() {
   const minHumidity = 30;
   const maxHumidity = 70;
@@ -42,11 +44,21 @@ function sendHumidityReading(humidityReading) {
 }
 
 function startHumiditySimulation() {
-  setInterval(() => {
+  humiditySimulationInterval = setInterval(() => {
     const humidityReading = simulateHumidityReading();
     console.log(`Humidity Reading: ${humidityReading.toFixed(2)}%`);
     sendHumidityReading(humidityReading);
   }, 25000);
 }
 
-module.exports = startHumiditySimulation;
+function stopHumiditySimulation() {
+  if (humiditySimulationInterval) {
+    clearInterval(humiditySimulationInterval);
+    humiditySimulationInterval = null;
+    console.log('Humidity Simulation stopped.');
+  } else {
+    console.log('Humidity Simulation is not currently running.');
+  }
+}
+
+module.exports = { startHumiditySimulation, stopHumiditySimulation };

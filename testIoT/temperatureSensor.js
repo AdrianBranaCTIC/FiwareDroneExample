@@ -1,5 +1,8 @@
 const http = require('http');
 
+let temperatureSimulationInterval;
+let statusSimulationInterval;
+
 function simulateTemperatureReading() {
   const minTemperature = 20;
   const maxTemperature = 30;
@@ -75,17 +78,35 @@ function sendStatusReading(statusValue) {
 }
 
 function startTemperatureSimulation() {
-  setInterval(() => {
+  temperatureSimulationInterval = setInterval(() => {
     const temperatureValue = simulateTemperatureReading();
     console.log(`Temperature Reading: ${temperatureValue.toFixed(2)} °C`);
     sendTemperatureReading(temperatureValue);
   }, 5000);
 
-  setInterval(() => {
+  statusSimulationInterval = setInterval(() => {
     const statusValue = Math.random() < 0.8 ? "OK" : "FAIL";
     console.log('Status Reading:'+ statusValue);
     sendStatusReading(statusValue);
   }, 20000);
 }
 
-module.exports = startTemperatureSimulation;
+function stopTemperatureSimulation() {
+  if (temperatureSimulationInterval) {
+    clearInterval(temperatureSimulationInterval);
+    temperatureSimulationInterval = null;
+    console.log('Temperature Simulation stopped.');
+  } else {
+    console.log('Temperature Simulation is not currently running.');
+  }
+
+  if (statusSimulationInterval) {
+    clearInterval(statusSimulationInterval);
+    statusSimulationInterval = null;
+    console.log('Status Simulation stopped.');
+  } else {
+    console.log('Status Simulation is not currently running.');
+  }
+}
+
+module.exports = { startTemperatureSimulation, stopTemperatureSimulation };

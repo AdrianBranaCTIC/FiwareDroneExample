@@ -1,5 +1,7 @@
 const http = require('http');
 
+let uvSimulationInterval;
+
 function simulateUVIndex() {
   const minUVIndex = 1;
   const maxUVIndex = 10;
@@ -42,11 +44,21 @@ function sendUVReading(uvIndex) {
 }
 
 function startUVSimulation() {
-  setInterval(() => {
+  uvSimulationInterval = setInterval(() => {
     const uvIndex = simulateUVIndex();
     console.log(`UV Index: ${uvIndex.toFixed(2)}`);
     sendUVReading(uvIndex);
   }, 15000);
 }
 
-module.exports = startUVSimulation;
+function stopUVSimulation() {
+  if (uvSimulationInterval) {
+    clearInterval(uvSimulationInterval);
+    uvSimulationInterval = null;
+    console.log('UV Simulation stopped.');
+  } else {
+    console.log('UV Simulation is not currently running.');
+  }
+}
+
+module.exports = { startUVSimulation, stopUVSimulation };

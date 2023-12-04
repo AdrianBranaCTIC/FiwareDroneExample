@@ -1,5 +1,7 @@
 const http = require('http');
 
+let gasSimulationInterval; // Variable to store the interval ID
+
 function simulateGasConcentration() {
   const minConcentration = 50;
   const maxConcentration = 500;
@@ -42,12 +44,23 @@ function sendGasReading(gasConcentration) {
 }
 
 function startGasSimulation() {
-  setInterval(() => {
+  gasSimulationInterval = setInterval(() => {
     const gasConcentration = simulateGasConcentration();
     console.log(`Gas Concentration: ${gasConcentration.toFixed(2)} ppm`);
     sendGasReading(gasConcentration);
   }, 30000);
 }
 
-// Exportar la función startGasSimulation para que pueda ser llamada desde otro archivo
-module.exports = startGasSimulation;
+function stopGasSimulation() {
+  if (gasSimulationInterval) {
+    clearInterval(gasSimulationInterval);
+    console.log('Gas Simulation stopped.');
+  } else {
+    console.log('Gas Simulation is not currently running.');
+  }
+}
+
+module.exports = {
+  startGasSimulation,
+  stopGasSimulation,
+};

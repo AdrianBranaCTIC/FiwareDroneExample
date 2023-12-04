@@ -25,6 +25,14 @@
         <button onclick="redirectToMapHub()" class="btn btn-danger btn-block special-button">Drones flight control</button>
       </div>
     </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <button onclick="startIoTSimulation()" class="btn btn-primary btn-block">Start IoT Simulation</button>
+      </div>
+      <div class="col-md-6">
+        <button onclick="stopIoTSimulation()" class="btn btn-warning btn-block">Stop IoT Simulation</button>
+      </div>
+    </div>
   </div>
   
   <style>
@@ -61,6 +69,22 @@
     function redirectToMapHub() {
       window.location.href = '/maphub';
     }
+
+    function startIoTSimulation() {
+    // Hacer una solicitud al servidor para llamar a la función startIoTSimulation
+    fetch('/startIoTSimulation', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error starting IoT simulation:', error));
+  }
+
+  function stopIoTSimulation() {
+    // Hacer una solicitud al servidor para llamar a la función stopIoTSimulation
+    fetch('/stopIoTSimulation', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error stopping IoT simulation:', error));
+  }
   </script>
 </body>
 

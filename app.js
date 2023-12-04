@@ -8,6 +8,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 
 const ResponseModel = require('./models/ResponseModel');
+const initializeIoT = require('./testIoT/initializeIoT');
 
 const app = express();
 const server = http.createServer(app);
@@ -35,6 +36,24 @@ app.use((err, req, res, next) => {
 
 // Rutas
 app.get('/', (req, res) => res.render('index'));
+
+app.post('/startIoTSimulation', (req, res) => {
+  try {
+    initializeIoT.startIoTSimulation();
+    res.json({ message: 'IoT Simulation started successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to start IoT Simulation' });
+  }
+});
+
+app.post('/stopIoTSimulation', (req, res) => {
+  try {
+    initializeIoT.stopIoTSimulation();
+    res.json({ message: 'IoT Simulation stopped successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to stop IoT Simulation' });
+  }
+});
 
 app.post('/monitor', async (req, res) => {
   try {

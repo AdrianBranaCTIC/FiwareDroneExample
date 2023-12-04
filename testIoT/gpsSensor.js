@@ -12,6 +12,7 @@ class gpsSensor {
     this.currentIndex = 0;
     this.currentStep = 0;
     this.currentPosition = this.coordinates[this.currentIndex];
+    this.gpsSimulationInterval = null; // Variable to store the interval ID
   }
 
   getNextCoordinate() {
@@ -73,12 +74,23 @@ class gpsSensor {
   }
 
   startGPSSimulation() {
-    setInterval(() => {
+    this.gpsSimulationInterval = setInterval(() => {
       const { latitude, longitude } = this.simulateGPSReading();
       console.log(`GPS Reading: Latitud ${latitude.toFixed(6)}, Longitud ${longitude.toFixed(6)}`);
       this.sendGPSReading(latitude, longitude);
     }, 1000);
   }
+  
+  stopGPSSimulation() {
+    if (this.gpsSimulationInterval !== null) {
+      clearInterval(this.gpsSimulationInterval);
+      this.gpsSimulationInterval = null;
+      console.log('GPS Simulation stopped.');
+    } else {
+      console.log('GPS Simulation is not currently running.');
+    }
+  }
+
 }
 
 module.exports = gpsSensor;
