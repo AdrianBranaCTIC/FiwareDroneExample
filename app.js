@@ -168,10 +168,10 @@ app.post('/maphub', (req, res) => {
   try {
     const notificationData = req.body;
 
-    if (notificationData.type === "GPS") {
+    //if (notificationData.type === "GPS") {
       console.log('Notificación recibida MapHub:', notificationData);
       io.emit('notificationMap', notificationData);
-    }
+    //}
     res.status(200).send('Notificación recibida MapHub');
   } catch (error) {
     console.error(error);
