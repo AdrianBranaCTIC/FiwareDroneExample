@@ -4,6 +4,7 @@ volumes:
     mongodb: ~
     crate-db: ~
     grafana: ~
+    fiware-drones-app: ~
 
 services:
     iot-agent:
@@ -97,3 +98,19 @@ services:
             - GF_INSTALL_PLUGINS=orchestracities-map-panel,grafana-clock-panel,grafana-worldmap-panel
         volumes:
             - grafana:/var/lib/grafana
+
+    fiware-drones-app:
+        build:
+            context: .
+            dockerfile: Dockerfile  # Nombre de tu archivo Dockerfile
+        container_name: fiware-drones-app
+        expose:
+            - "3000"
+        ports:
+            - "3000:3000"
+        environment:
+            - "BASEPATH=http://orion:1026/v2"
+            - "PORT=3000"
+            - "BASEPATHIOTA=iot-agent"
+        volumes:
+            - fiware-drones-app:/usr/src/app

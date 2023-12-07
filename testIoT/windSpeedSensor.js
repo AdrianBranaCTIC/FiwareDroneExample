@@ -1,5 +1,7 @@
 const http = require('http');
 
+const basePathIoTA = process.env.BASEPATHIOTA || 'localhost';
+
 let windSpeedSimulationInterval;
 
 function simulateWindSpeed() {
@@ -12,7 +14,7 @@ function simulateWindSpeed() {
 function sendWindSpeedReading(windSpeed) {
   const data = `reading|${windSpeed.toFixed(2)}`;
   const options = {
-    hostname: 'localhost',
+    hostname: basePathIoTA,
     port: 7896,
     path: '/iot/d?i=WindSpeedSensor001&k=TEF',
     method: 'POST',

@@ -1,5 +1,7 @@
 const http = require('http');
 
+const basePathIoTA = process.env.BASEPATHIOTA || 'localhost';
+
 let temperatureSimulationInterval;
 let statusSimulationInterval;
 
@@ -12,7 +14,7 @@ function simulateTemperatureReading() {
 function sendTemperatureReading(temperatureValue) {
   const data = `reading|${temperatureValue.toFixed(2)}`;
   const options = {
-    hostname: 'localhost',
+    hostname: basePathIoTA,
     port: 7896,
     path: '/iot/d?i=TemperatureSensor001&k=TEF',
     method: 'POST',
@@ -46,7 +48,7 @@ function sendTemperatureReading(temperatureValue) {
 function sendStatusReading(statusValue) {
   const data = `status|${statusValue}`;
   const options = {
-    hostname: 'localhost',
+    hostname: basePathIoTA,
     port: 7896,
     path: '/iot/d?i=TemperatureSensor001&k=TEF',
     method: 'POST',

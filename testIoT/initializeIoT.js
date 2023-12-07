@@ -1,5 +1,5 @@
 // initializeIoT.js
-// This file is used to initialize the IoT simulation. It starts the simulation of each sensor and the GPS simulation of each sensor
+// This file is used to initialize the IoT simulation.
 
 // Placeholder to keep track of the simulation state
 let isIoTSimulationRunning = false;

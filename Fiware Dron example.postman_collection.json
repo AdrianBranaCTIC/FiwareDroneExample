@@ -1426,7 +1426,7 @@
 			"response": []
 		},
 		{
-			"name": "Add Subscription2",
+			"name": "Add Subscription EXAMPLE",
 			"request": {
 				"method": "POST",
 				"header": [],

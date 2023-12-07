@@ -1,5 +1,7 @@
 const http = require('http');
 
+const basePathIoTA = process.env.BASEPATHIOTA || 'localhost';
+
 let humiditySimulationInterval;
 
 function simulateHumidityReading() {
@@ -12,7 +14,7 @@ function simulateHumidityReading() {
 function sendHumidityReading(humidityReading) {
   const data = `reading|${humidityReading.toFixed(2)}`;
   const options = {
-    hostname: 'localhost',
+    hostname: basePathIoTA,
     port: 7896,
     path: '/iot/d?i=HumiditySensor001&k=TEF',
     method: 'POST',

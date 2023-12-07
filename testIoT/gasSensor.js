@@ -1,5 +1,7 @@
 const http = require('http');
 
+const basePathIoTA = process.env.BASEPATHIOTA || 'localhost';
+
 let gasSimulationInterval; // Variable to store the interval ID
 
 function simulateGasConcentration() {
@@ -12,7 +14,7 @@ function simulateGasConcentration() {
 function sendGasReading(gasConcentration) {
   const data = `reading|${gasConcentration.toFixed(2)}`;
   const options = {
-    hostname: 'localhost',
+    hostname: basePathIoTA,
     port: 7896,
     path: '/iot/d?i=GasSensor001&k=TEF',
     method: 'POST',

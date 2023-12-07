@@ -1,5 +1,7 @@
 const http = require('http');
 
+const basePathIoTA = process.env.BASEPATHIOTA || 'localhost';
+
 class gpsSensor {
   constructor(gpsId, coordinates = [
     {latitude: 43.49385939359258, longitude: -5.5487598772440165}, //Peon
@@ -42,7 +44,7 @@ class gpsSensor {
   sendGPSReading(latitude, longitude) {
     const data = `latitude|${latitude.toFixed(6)}|longitude|${longitude.toFixed(6)}`;
     const options = {
-      hostname: 'localhost',
+      hostname: basePathIoTA,
       port: 7896,
       path: `/iot/d?i=${this.gpsId}&k=TEF`,
       method: 'POST',

@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 const port = process.env.PORT || 3000;
-const basePath = 'http://localhost:1026/v2';
+const basePath = process.env.BASEPATH || 'http://localhost:1026/v2';
 
 // Middleware para analizar el cuerpo de las solicitudes como JSON
 app.use(bodyParser.json());
@@ -23,12 +23,6 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
-});
-
 // Rutas
 app.get('/', (req, res) => res.render('index'));
 
@@ -37,6 +31,7 @@ app.post('/startIoTSimulation', (req, res) => {
     initializeIoT.startIoTSimulation();
     res.json({ message: 'IoT Simulation started successfully' });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Failed to start IoT Simulation' });
   }
 });
@@ -46,6 +41,7 @@ app.post('/stopIoTSimulation', (req, res) => {
     initializeIoT.stopIoTSimulation();
     res.json({ message: 'IoT Simulation stopped successfully' });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Failed to stop IoT Simulation' });
   }
 });
@@ -57,7 +53,8 @@ app.post('/monitor', async (req, res) => {
     io.emit('notificationMonitor', notificationData);
     res.status(200).send('Notificación recibida Monitor');
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -70,7 +67,8 @@ app.post('/iotdevices', async (req, res) => {
     io.emit('notificationIoT', notificationData);
     res.status(200).send('Notificación recibida IoT');
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -106,7 +104,8 @@ app.get('/iotdevices', async (req, res) => {
 
     res.render('listIoT', { types, devices });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -118,7 +117,8 @@ app.get('/entities', async (req, res) => {
     const types = response.data;
     res.render('listEntities', { types });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -130,7 +130,8 @@ app.get('/entities/:type', async (req, res) => {
     const entities = response.data;
     res.render('entities', { entities, entityType });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -155,9 +156,10 @@ app.get('/map/:droneId', async (req, res) => {
       };
     });
 
-    res.render('map', { routePoints, droneId }); // Pasa las entidades como un objeto con los puntos de ruta
+    res.render('map', { routePoints, droneId });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -166,15 +168,14 @@ app.post('/maphub', (req, res) => {
   try {
     const notificationData = req.body;
 
-    // Check if the notification is intended for /maphub
-    if (notificationData.type = "GPS") {
+    if (notificationData.type === "GPS") {
       console.log('Notificación recibida MapHub:', notificationData);
-      // Enviar la notificación a la vista monitor.ejs
       io.emit('notificationMap', notificationData);
     }
     res.status(200).send('Notificación recibida MapHub');
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -187,17 +188,16 @@ app.get('/maphub', async (req, res) => {
         'fiware-servicepath': '/project'
       }
     });
-    const drones = response.data.map(resp => {
-      return {
-        Name: resp.refDrone,
-        Latitude: resp.latitude,
-        Longitude: resp.longitude
-      };
-    });
+    const drones = response.data.map(resp => ({
+      Name: resp.refDrone,
+      Latitude: resp.latitude,
+      Longitude: resp.longitude
+    }));
     console.log(drones);
-    res.render('maphub', { drones }); // Pass the drones as data to the maphub.ejs view
+    res.render('maphub', { drones });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

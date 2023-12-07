@@ -1,5 +1,7 @@
 const http = require('http');
 
+const basePathIoTA = process.env.BASEPATHIOTA || 'localhost';
+
 let uvSimulationInterval;
 
 function simulateUVIndex() {
@@ -12,7 +14,7 @@ function simulateUVIndex() {
 function sendUVReading(uvIndex) {
   const data = `reading|${uvIndex.toFixed(2)}`;
   const options = {
-    hostname: 'localhost',
+    hostname: basePathIoTA,
     port: 7896,
     path: '/iot/d?i=UVSensor001&k=TEF',
     method: 'POST',
