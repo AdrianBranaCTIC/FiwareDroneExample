@@ -319,7 +319,8 @@
 									"value": "values"
 								}
 							]
-						}
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve the types with options for values. The request does not require a request body. Upon successful execution, the response will contain a status code of 200 and an array of type values.\n"
 					},
 					"response": []
 				}
@@ -415,7 +416,8 @@
 									"value": "0"
 								}
 							]
-						}
+						},
+						"description": "\n# Get Devices\n\nThis endpoint retrieves a list of devices with the option to limit the number of results and specify an offset for pagination.\n\n## Request\n\n### Endpoint\n\n`GET {{host}}:{{iota_port}}/iot/devices`\n\n### Query Parameters\n\n- `limit` (optional, integer): Specifies the maximum number of devices to be returned.\n- `offset` (optional, integer): Specifies the offset for pagination.\n\n## Response\n\n- Status: 200 OK\n\n### Body\n\nThe response body contains a JSON object with the following properties:\n\n- `count` (integer): The total count of devices.\n- `devices` (array): An array containing objects representing individual devices. Each device object includes the following properties:\n  - `device_id` (string): The unique identifier of the device.\n  - `service` (string): The service associated with the device.\n  - `service_path` (string): The path of the service.\n  - `entity_name` (string): The name of the entity.\n  - `entity_type` (string): The type of the entity.\n  - `polling` (boolean): Indicates whether polling is enabled for the device.\n  - `transport` (string): The transport mechanism used by the device.\n  - `attributes` (array): An array containing objects representing attributes of the device, with the following properties:\n    - `object_id` (string): The unique identifier of the object.\n    - `name` (string): The name of the attribute.\n    - `type` (string): The type of the attribute.\n  - `lazy` (array): An array containing lazy attributes.\n  - `commands` (array): An array containing commands associated with the device.\n  - `static_attributes` (array): An array containing static attributes of the device.\n\n"
 					},
 					"response": []
 				},
@@ -1304,6 +1306,51 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Subscriptions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GPS changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GPS\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"latitude\",\"longitude\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a list of subscriptions. A subscription is a rule that defines what changes in the system should trigger a notification. The request should not include any payload in the body.\n\nThe response will be a JSON array of subscription objects, each containing an ID, description, status, subject (including entities and conditions), and notification details (including HTTP URL, last success information, and other attributes).\n\nExample response:\n\n``` json\n[\n    {\n        \"id\": \"\",\n        \"description\": \"\",\n        \"status\": \"\",\n        \"subject\": {\n            \"entities\": [\n                {\n                    \"idPattern\": \"\",\n                    \"type\": \"\"\n                }\n            ],\n            \"condition\": {\n                \"attrs\": [\"\"],\n                \"notifyOnMetadataChange\": true\n            }\n        },\n        \"notification\": {\n            \"timesSent\": 0,\n            \"lastNotification\": \"\",\n            \"attrs\": [],\n            \"onlyChangedAttrs\": true,\n            \"attrsFormat\": \"\",\n            \"http\": {\n                \"url\": \"\"\n            },\n            \"lastSuccess\": \"\",\n            \"lastSuccessCode\": 0,\n            \"covered\": true\n        }\n    }\n]\n\n ```"
+					},
+					"response": []
 				}
 			]
 		},
@@ -1324,7 +1371,8 @@
 							"path": [
 								"version"
 							]
-						}
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve the version information.\n\nThe request does not include a request body.\n\n### Response\n- Status: 200\n- Body:\n    ```json\n    {\n        \"version\": \"\"\n    }\n    ```\n"
 					},
 					"response": []
 				}
@@ -1356,7 +1404,8 @@
 							"path": [
 								"_sql"
 							]
-						}
+						},
+						"description": "\nThis endpoint is used to make an HTTP POST request to execute SQL statements on the specified host and port. The request should include a JSON payload in the raw request body type with the SQL statement to be executed.\n\n### Request Body\n- `stmt`: (string) The SQL statement to be executed.\n\n### Response\n- Status: 200 OK\n- `cols`: (array) An array of column names returned in the result set.\n- `rows`: (array) An array of rows containing the result set data.\n- `rowcount`: (number) The number of rows affected by the SQL statement.\n- `duration`: (number) The duration of the SQL statement execution in milliseconds.\n\n"
 					},
 					"response": []
 				}
@@ -1376,7 +1425,8 @@
 					"path": [
 						"version"
 					]
-				}
+				},
+				"description": "\n# Version Endpoint\n\nThis endpoint allows you to retrieve the version information of the Orion system.\n\n## Request\n\n- Method: GET\n- URL: `{{host}}:{{orion_port}}/version`\n\n## Response\n\n- Status: 200 OK\n- Body:\n\n```json\n{\n    \"orion\": {\n        \"version\": \"\",\n        \"uptime\": \"\",\n        \"git_hash\": \"\",\n        \"compile_time\": \"\",\n        \"compiled_by\": \"\",\n        \"compiled_in\": \"\",\n        \"release_date\": \"\",\n        \"machine\": \"\",\n        \"doc\": \"\",\n        \"libversions\": {\n            \"boost\": \"\",\n            \"libcurl\": \"\",\n            \"libmosquitto\": \"\",\n            \"libmicrohttpd\": \"\",\n            \"openssl\": \"\",\n            \"rapidjson\": \"\",\n            \"mongoc\": \"\",\n            \"bson\": \"\"\n        }\n    }\n}\n```\n"
 			},
 			"response": []
 		},
@@ -1396,7 +1446,8 @@
 						"entities",
 						"urn:ngsi-ld:DroneStation:001"
 					]
-				}
+				},
+				"description": "\nThis endpoint retrieves information about a specific drone station by making an HTTP GET request to the specified URL. The response will include details such as the station's ID, type, capacity, description, location, name, state, and station type.\n\nThe last call to this request did not include a request body. The response returned a status code of 200, indicating a successful retrieval of the drone station information.\n\nThe response body provides the details of the drone station, including its ID, type, capacity, description, location, name, state, and station type. Each attribute includes its type, value, and metadata.\n\n"
 			},
 			"response": []
 		},
@@ -1421,7 +1472,8 @@
 							"value": "Drone"
 						}
 					]
-				}
+				},
+				"description": "\nThis endpoint makes an HTTP GET request to retrieve a list of entities of type \"Drone\". The request does not include a request body. \n\n### Response\nThe response will have a status code of 200, and it will contain an array of objects. Each object represents a drone entity and includes the following properties:\n- id: The unique identifier of the drone entity.\n- type: The type of the drone entity.\n- model: An object containing the type, value, and metadata of the drone's model.\n- numSensorsInstalled: An object containing the type, value, and metadata of the number of sensors installed on the drone.\n- refModel: An object containing the type, value, and metadata of the reference model of the drone.\n- state: An object containing the type, value, and metadata of the state of the drone.\n\n"
 			},
 			"response": []
 		},
@@ -1475,7 +1527,8 @@
 							"value": "values"
 						}
 					]
-				}
+				},
+				"description": "\nThis endpoint makes an HTTP GET request to retrieve the types with options for values. The request does not require a request body. Upon successful execution, the response will have a status code of 200, and it will return an array of type values.\n"
 			},
 			"response": []
 		}

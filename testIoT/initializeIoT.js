@@ -45,8 +45,6 @@ const gpsSimulator2 = new gpsSensor("GPS002", [
 
 function startIoTSimulation() {
   if (!isIoTSimulationRunning) {
-    // Add logic to start IoT simulations
-    // For example, start the simulation of each sensor and GPS simulation
     console.log('Starting IoT Simulation...');
     startGasSimulation();
     startHumiditySimulation();
@@ -64,8 +62,6 @@ function startIoTSimulation() {
 
 function stopIoTSimulation() {
   if (isIoTSimulationRunning) {
-    // Add logic to stop IoT simulations
-    // For example, stop the simulation of each sensor and GPS simulation
     console.log('Stopping IoT Simulation...');
     stopGasSimulation();
     stopHumiditySimulation();
