@@ -4,7 +4,7 @@ version: '3'
 
 vars:
   ENV_FILE: .env
-  POSTMAN_COLLECTION: FIWARE PoC DATA.postman_collection
+  POSTMAN_COLLECTION: FIWARE_PoC_DATA.postman_collection.json
   POSTMAN_ENVIRONMENT: Fiware.postman_environment.json
 
 tasks:
