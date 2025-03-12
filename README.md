@@ -36,12 +36,6 @@ npm --version
 newman --version
 ```
 
-> [!NOTE] 
-> Para revisar todas las tasks que permite ejecutar el sistema, puedes ejecutar el siguiente comando, el cual te incluye además una descripción de lo que hace cada una:
-```sh
-task --list
-```
-
 ## **2. Despliegue automático con Docker y Taskfile**
 El despliegue de la infraestructura FIWARE y la aplicación se realiza con Taskfile, evitando la necesidad de ejecutar manualmente comandos de docker-compose o cargar datos a mano.
 
@@ -49,6 +43,12 @@ El despliegue de la infraestructura FIWARE y la aplicación se realiza con Taskf
 1. Ubícate en la carpeta raíz del proyecto:
 ```sh
 cd FiwareDroneExample
+```
+
+> [!NOTE] 
+> Para revisar todas las tasks que permite ejecutar el sistema, puedes ejecutar el siguiente comando, el cual te incluye además una descripción de lo que hace cada una:
+```sh
+task --list
 ```
 
 2. Ejecuta la siguiente task según el estado de tu entorno:

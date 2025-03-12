@@ -13,7 +13,10 @@ tasks:
     cmds:
       - echo "Desplegando la aplicación..."
       - docker compose --env-file {{.ENV_FILE}} up --build -d
-      - task data
+      - echo "Despliegue completado."
+      - echo "Inicializando datos..."
+      - newman run {{.POSTMAN_COLLECTION}} --folder "Init" --environment {{.POSTMAN_ENVIRONMENT}}
+      - echo "Datos inicializados."
     silent: false
 
   clean:
