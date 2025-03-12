@@ -3,14 +3,14 @@
 Este proyecto es un caso de uso basado en la plataforma IoT FIWARE. Se centra en un sistema de control de incendios mediante drones, que simulan lecturas continuas de sensores. Además, incluye una aplicación en Node.js para visualizar los datos y un entorno completamente automatizado para su despliegue.
 
 ## **Índice**
-1. [Requisitos previos](#requisitos-previos)
-2. [Despliegue automático con Docker y Taskfile](#despliegue-automático-con-docker-y-taskfile)
-3. [Carga automática de datos con Postman y Newman](#carga-automática-de-datos-con-postman-y-newman)
-4. [Gestión de la aplicación](#gestión-de-la-aplicacion)
-5. [Acceso a las aplicaciones web](#acceso-a-las-aplicaciones-web)
-6. [Apagar y limpiar el sistema](#apagar-y-limpiar-el-sistema)
-7. [Verificación de variables de entorno](#verificación-de-variables-de-entorno)
-8. [Conceptos clave y tecnologías utilizadas](#conceptos-clave-y-tecnologías-utilizadas)
+1. [Requisitos previos](#1-requisitos-previos)
+2. [Despliegue automático con Docker y Taskfile](#2-despliegue-automático-con-docker-y-taskfile)
+3. [Carga automática de datos con Postman y Newman](#3-carga-automática-de-datos-con-postman-y-newman)
+4. [Gestión de la aplicación](#4-gestión-de-la-aplicación)
+5. [Acceso a las aplicaciones web](#5-acceso-a-las-aplicaciones-web)
+6. [Apagar y limpiar el sistema](#6-apagar-y-limpiar-el-sistema)
+7. [Verificación de variables de entorno](#7-verificación-de-variables-de-entorno)
+8. [Conceptos clave y tecnologías utilizadas](#8-conceptos-clave-y-tecnologías-utilizadas)
 
 ---
 
@@ -36,7 +36,8 @@ npm --version
 newman --version
 ```
 
-> [!NOTE] Para revisar todas las tasks que permite ejecutar el sistema, puedes ejecutar el siguiente comando, el cual te incluye además una descripción de lo que hace cada una:
+> [!NOTE] 
+> Para revisar todas las tasks que permite ejecutar el sistema, puedes ejecutar el siguiente comando, el cual te incluye además una descripción de lo que hace cada una:
 ```sh
 task --list
 ```
@@ -88,7 +89,8 @@ Si quisieras ejecutar manualmente desde Postman ejecuta las siguientes carpetas:
 2️⃣ Carpeta de Postman a ejecutar para los healthchecks
 - Check
 
-> [!CAUTION] La aplicación Node.js está diseñada específicamente para este caso de los drones. Si usas otros datos, la visualización puede no ser correcta.
+> [!CAUTION] 
+> La aplicación Node.js está diseñada específicamente para este caso de los drones. Si usas otros datos, la visualización puede no ser correcta.
 
 ## **4. Gestión de la aplicación**
 Una vez desplegada, puedes gestionar la aplicación mediante las siguientes tasks:
@@ -161,8 +163,8 @@ echo $PORT
 echo $BASEPATHIOTA
 ```
 
-## **8.Conceptos clave y tecnologías utilizadas**
-### **¿Qué es FIWARE?
+## **8. Conceptos clave y tecnologías utilizadas**
+### **¿Qué es FIWARE?**
 <TBD>
 
 
