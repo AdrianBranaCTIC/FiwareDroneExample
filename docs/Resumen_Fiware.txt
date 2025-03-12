@@ -1,0 +1,44 @@
+Dispositivos:	
+	- IoT Device
+	
+Conexión de dispositivos al sistema de Fiware:
+	- Fast-RTPS y Micro-RTPS (publicación-suscripción)
+	- Ultralight 2.0 (no es un protocolo de transporte, adicionalemente se necesitaría HTTP o un protocolo de paso de mensajes como MQTT)
+	- JSON (no es un protocolo de transporte, es un payload como Ultralight 2.0)
+	- LoraWAN
+	- MQTT (paso de mensajes publicación suscripción, necesita un MQTT broker intermedio que gestione el tráfico)
+
+Traducción de protocolos propietarios a estándar NGSI:
+	- IoT agent
+	
+Broker NGSI:
+	- OCB
+	
+Almacenamiento de context data como data entities, subscriptions y registrations utilizado por el OCB:
+	- MongoDB
+
+Almacenamiento persistente para guardar información histórica de context data (MongoDB, PostgreSQL, MySQL):
+	- Cygnus (Apache Flume)
+	- Draco (Apache Nifi)
+	
+Almacenamiento de series de datos temporales:
+	- minimal mode STH-Comet (MongoDB)
+	- QuantumLeap (CrateDB; Grafana)
+	
+Seguridad:
+	- Keyrock (OAuth 2.0 para Identity Management, que engloba Authorization y Securing Access;
+	necesita una MySQL para almacenar persistencia de las user identities, applications, roles and permisions)
+		- Wilma (PEP proxy que sirve para, en combinación con Keyrock, asegurar un acceso seguro a los endpoints de los Fiware generic enablers)
+			- Authzforce (XACML Server PDP que sirve para, en combinación con Keyrock y Wilma, 
+			gestionar políticas de control de acceso para múltiples aplicaciones separadas en dominios, con un PoliceSet propio accesible para cada uno)
+			
+Visualización de los datos:
+	- Wirecloud (herramienta de visualización que permite a usuarios noveles crear dashboards para visualizar NGSI Data, 
+	necesita un NGSI proxy que redirija las notificaciones del OCB a páginas web)
+	- Kurento (media server para análisis de datos a través de un WebRTC, que es un set de protocolos para comunicaciones peer-to-peer
+	en tiempo real entre browsers o aplicaciones móviles)
+	- Cosmos Orion-Flink Conector (Big Data analisis del context data a través de la integración con Apache Flink)
+	
+Linked Data:
+	- NGSI-LD (evolución de NGSI v2, ofreciendo un modelo de datos mas complejo; utiliza JSON-LD)
+	
