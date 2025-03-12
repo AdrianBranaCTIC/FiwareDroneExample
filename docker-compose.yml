@@ -1,5 +1,3 @@
-version: "3.1"
-
 volumes:
     mongodb: ~
     crate-db: ~
@@ -49,6 +47,7 @@ services:
         image: crate:5.5.0
         hostname: crate-db
         container_name: db-crate
+        restart: always
         ports:
             # Admin UI
             - "4200:4200"
@@ -60,7 +59,11 @@ services:
               "-Chttp.cors.enabled=true",
               "-Chttp.cors.allow-origin=*" ,
               "-Cdiscovery.type=single-node"
-              ]          
+              ]
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure      
         env_file:
             - .env
         volumes:

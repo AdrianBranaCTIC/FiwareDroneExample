@@ -1,0 +1,67 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  ENV_FILE: .env
+  POSTMAN_COLLECTION: postman_collection.json
+  POSTMAN_ENVIRONMENT: postman_environment.json
+
+tasks:
+   deploy:
+    desc: Despliega la aplicación y los servicios subyacentes necesarios para su correcto funcionamiento.
+    cmds:
+      - echo "Desplegando la aplicación..."
+      - docker compose --env-file {{.ENV_FILE}} up --build -d
+      - task data
+    silent: false
+
+  clean:
+    desc: Limpia la aplicación y los servicios subyacentes.
+    cmds:
+      - echo "Limpiando contenedores y volúmenes..."
+      - docker compose down -v
+      - echo "Limpieza completada."
+
+  data:
+    desc: Inicializa la estructura de datos y los datos base en Postman.
+    cmds:
+      - echo "Inicializando datos..."
+      - newman run {{.POSTMAN_COLLECTION}} --folder "Add Entities" --environment {{.POSTMAN_ENVIRONMENT}}
+      - newman run {{.POSTMAN_COLLECTION}} --folder "Subscriptions" --environment {{.POSTMAN_ENVIRONMENT}}
+      - newman run {{.POSTMAN_COLLECTION}} --folder "IoT" --environment {{.POSTMAN_ENVIRONMENT}}
+      - newman run {{.POSTMAN_COLLECTION}} --folder "IoT Agent" --environment {{.POSTMAN_ENVIRONMENT}}
+
+    silent: false
+
+  start:
+    desc: Inicia la aplicación.
+    cmds:
+      - docker compose start
+
+  stop:
+    desc: Detiene la aplicación.
+    cmds:
+      - docker compose stop
+
+  restart:
+    desc: Reinicia la aplicación.
+    cmds:
+      - docker compose restart
+
+  logs:
+    desc: Muestra los logs de la aplicación en tiempo real.
+    cmds:
+      - docker compose logs -f
+
+  down:
+    desc: Detiene y elimina la aplicación junto con los volúmenes.
+    cmds:
+      - echo "Deteniendo y eliminando contenedores..."
+      - docker compose down -v
+      - echo "Eliminación completada."
+
+  check_services:
+    desc: Comprueba el estado de los servicios.
+    cmds:
+      - newman run {{.POSTMAN_COLLECTION}} --folder "Healthcheck" --environment {{.POSTMAN_ENVIRONMENT
