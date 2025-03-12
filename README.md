@@ -179,3 +179,11 @@ echo $BASEPATHIOTA
     ```sh
     task logs
     ```
+### **Diagramas**
+- **Arquitectura**
+  
+![drones_fiware_architecture](https://github.com/user-attachments/assets/735b91df-6a69-4da5-beae-50c9f607f896)
+
+- **Secuencia**
+  
+![iota_sequence](https://github.com/user-attachments/assets/627c5781-0d1a-4202-b700-9052fdd05399)
