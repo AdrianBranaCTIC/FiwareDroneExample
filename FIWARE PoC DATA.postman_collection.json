@@ -1,0 +1,1196 @@
+{
+	"info": {
+		"_postman_id": "c98d4fa1-8097-4dab-9b67-8fb6014f01bd",
+		"name": "FIWARE PoC DATA",
+		"description": "Colección que permite cargar los datos inicales para la PoC de Control de Incendios mediante drones basada en la plataforma IoT de FIWARE.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31025405"
+	},
+	"item": [
+		{
+			"name": "Init",
+			"item": [
+				{
+					"name": "Add DroneStation Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"urn:ngsi-ld:DroneStation:001\",\r\n    \"type\": \"DroneStation\",\r\n    \"name\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Central Drone Hub\"\r\n    },\r\n    \"description\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Main hub for charging drones\"\r\n    },\r\n    \"stationType\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Charge\"\r\n    },\r\n    \"state\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Operational\"\r\n    },\r\n    \"location\": {\r\n        \"type\": \"geo:json\",\r\n        \"value\": {\r\n             \"type\": \"Point\",\r\n             \"coordinates\": [40.7128, -74.0060]\r\n        }\r\n    },\r\n    \"capacity\": {\r\n        \"type\": \"Integer\",\r\n        \"value\": 50\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/entities",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Drone Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"urn:ngsi-ld:Drone:001\",\r\n    \"type\": \"Drone\",\r\n    \"model\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"DJI Matrice 350\"\r\n    },\r\n    \"state\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Active\"\r\n    },\r\n    \"numSensorsInstalled\": {\r\n        \"type\": \"Integer\",\r\n        \"value\": 4\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/entities",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add RoutePoint Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"urn:ngsi-ld:RoutePoint:001\",\r\n    \"type\": \"RoutePoint\",\r\n    \"pointType\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Simple\"\r\n    },\r\n    \"location\": {\r\n        \"type\": \"geo:json\",\r\n        \"value\": {\r\n             \"type\": \"Point\",\r\n             \"coordinates\": [34.0522, -118.2437, 100, 45.0]\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/entities",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add DroneModel Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"urn:ngsi-ld:Model:001\",\r\n    \"type\": \"Model\",\r\n    \"brand\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"DJI\"\r\n    },\r\n    \"modelName\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Matrice 350\"\r\n    },\r\n    \"maximumSpeed\": {\r\n        \"type\": \"Number\",\r\n        \"value\": 75.0\r\n    },\r\n    \"autonomy\": {\r\n        \"type\": \"Number\",\r\n        \"value\": 50.0\r\n    },\r\n    \"chargingTime\": {\r\n        \"type\": \"Number\",\r\n        \"value\": 1.5\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/entities",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Multiple DroneStation Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"actionType\": \"APPEND\",\r\n    \"entities\": [\r\n        {\r\n            \"id\": \"urn:ngsi-ld:DroneStation:001\",\r\n            \"type\": \"DroneStation\",\r\n            \"name\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Central Drone Hub\"\r\n            },\r\n            \"description\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Main Peon hub for charging drones\"\r\n            },\r\n            \"stationType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Charge\"\r\n            },\r\n            \"state\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Operational\"\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.49385939359258,\r\n                        -5.5487598772440165\r\n                    ]\r\n                }\r\n            },\r\n            \"capacity\": {\r\n                \"type\": \"Integer\",\r\n                \"value\": 50\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:DroneStation:002\",\r\n            \"type\": \"DroneStation\",\r\n            \"name\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Secondary Drone Hub\"\r\n            },\r\n            \"description\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Secondary Arroes hub for charging drones\"\r\n            },\r\n            \"stationType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Charge\"\r\n            },\r\n            \"state\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Available\"\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.51163504035255,\r\n                        -5.528577118724974\r\n                    ]\r\n                }\r\n            },\r\n            \"capacity\": {\r\n                \"type\": \"Integer\",\r\n                \"value\": 25\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:DroneStation:003\",\r\n            \"type\": \"DroneStation\",\r\n            \"name\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Main Take-off Drone Hub\"\r\n            },\r\n            \"description\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Main Peon hub for takeoffs\"\r\n            },\r\n            \"stationType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Takeoff\"\r\n            },\r\n            \"state\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Operational\"\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.49385939359258,\r\n                        -5.5487598772440165\r\n                    ]\r\n                }\r\n            },\r\n            \"capacity\": {\r\n                \"type\": \"Integer\",\r\n                \"value\": 40\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:DroneStation:004\",\r\n            \"type\": \"DroneStation\",\r\n            \"name\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Main Landing Drone Hub\"\r\n            },\r\n            \"description\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Main Peon hub for landing drones\"\r\n            },\r\n            \"stationType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Landing\"\r\n            },\r\n            \"state\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Available\"\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.49385939359258,\r\n                        -5.5487598772440165\r\n                    ]\r\n                }\r\n            },\r\n            \"capacity\": {\r\n                \"type\": \"Integer\",\r\n                \"value\": 25\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/op/update",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"op",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Multiple Drone Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"actionType\": \"APPEND\",\r\n    \"entities\": [\r\n        {\r\n            \"id\": \"urn:ngsi-ld:Drone:001\",\r\n            \"type\": \"Drone\",\r\n            \"model\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"DJI Matrice 350\"\r\n            },\r\n            \"state\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Active\"\r\n            },\r\n            \"numSensorsInstalled\": {\r\n                \"type\": \"Integer\",\r\n                \"value\": 4\r\n            },\r\n            \"refModel\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Model:001\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:Drone:002\",\r\n            \"type\": \"Drone\",\r\n            \"model\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"DJI Matrice 350\"\r\n            },\r\n            \"state\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Active\"\r\n            },\r\n            \"numSensorsInstalled\": {\r\n                \"type\": \"Integer\",\r\n                \"value\": 3\r\n            },\r\n            \"refModel\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Model:001\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/op/update",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"op",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Multiple RoutePoint Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"actionType\": \"APPEND\",\r\n    \"entities\": [\r\n        {\r\n            \"id\": \"urn:ngsi-ld:RoutePoint:001\",\r\n            \"type\": \"RoutePoint\",\r\n            \"pointType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Simple\"\r\n            },\r\n            \"altitud\": {\r\n                \"type\": \"Double\",\r\n                \"value\": 75.0\r\n            },\r\n            \"velocidad\": {\r\n                \"type\": \"double\",\r\n                \"value\": 45.0\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.49385939359258,\r\n                        -5.5487598772440165\r\n                    ]\r\n                }\r\n            },\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:RoutePoint:002\",\r\n            \"type\": \"RoutePoint\",\r\n            \"pointType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Simple\"\r\n            },\r\n            \"altitud\": {\r\n                \"type\": \"Double\",\r\n                \"value\": 100.0\r\n            },\r\n            \"velocidad\": {\r\n                \"type\": \"double\",\r\n                \"value\": 55.0\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.51163504035255,\r\n                        -5.528577118724974\r\n                    ]\r\n                }\r\n            },\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:RoutePoint:003\",\r\n            \"type\": \"RoutePoint\",\r\n            \"pointType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Simple\"\r\n            },\r\n            \"altitud\": {\r\n                \"type\": \"Double\",\r\n                \"value\": 80.0\r\n            },\r\n            \"velocidad\": {\r\n                \"type\": \"double\",\r\n                \"value\": 65.0\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.458513458197515,\r\n                        -5.561957839970137\r\n                    ]\r\n                }\r\n            },\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:RoutePoint:004\",\r\n            \"type\": \"RoutePoint\",\r\n            \"pointType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Simple\"\r\n            },\r\n            \"altitud\": {\r\n                \"type\": \"Double\",\r\n                \"value\": 75.0\r\n            },\r\n            \"velocidad\": {\r\n                \"type\": \"double\",\r\n                \"value\": 45.0\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.48105522798739,\r\n                        -5.4349809166104945\r\n                    ]\r\n                }\r\n            },\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:002\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:RoutePoint:005\",\r\n            \"type\": \"RoutePoint\",\r\n            \"pointType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Simple\"\r\n            },\r\n            \"altitud\": {\r\n                \"type\": \"Double\",\r\n                \"value\": 100.0\r\n            },\r\n            \"velocidad\": {\r\n                \"type\": \"double\",\r\n                \"value\": 55.0\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.53374756177125,\r\n                        -5.378101214168886\r\n                    ]\r\n                }\r\n            },\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:002\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"urn:ngsi-ld:RoutePoint:006\",\r\n            \"type\": \"RoutePoint\",\r\n            \"pointType\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Simple\"\r\n            },\r\n            \"altitud\": {\r\n                \"type\": \"Double\",\r\n                \"value\": 80.0\r\n            },\r\n            \"velocidad\": {\r\n                \"type\": \"double\",\r\n                \"value\": 65.0\r\n            },\r\n            \"location\": {\r\n                \"type\": \"geo:json\",\r\n                \"value\": {\r\n                    \"type\": \"Point\",\r\n                    \"coordinates\": [\r\n                        43.54356809000201,\r\n                        -5.4419425454052535\r\n                    ]\r\n                }\r\n            },\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:002\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/op/update",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"op",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add IoT Devices Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "fiware-service",
+								"value": "openiot"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"actionType\": \"APPEND\",\r\n    \"entities\": [\r\n        {\r\n            \"id\": \"CameraRGB:001\",\r\n            \"type\": \"CameraRGB\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"CameraIR:001\",\r\n            \"type\": \"CameraIR\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"TemperatureSensor:001\",\r\n            \"type\": \"TemperatureSensor\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"temperature\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 25.5,\r\n                \"metadata\": {\r\n                    \"unit\": {\r\n                        \"type\": \"Text\",\r\n                        \"value\": \"Celsius\"\r\n                    }\r\n                }\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"HumiditySensor:001\",\r\n            \"type\": \"HumiditySensor\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"humidity\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 60,\r\n                \"metadata\": {\r\n                    \"unit\": {\r\n                        \"type\": \"Text\",\r\n                        \"value\": \"Percent\"\r\n                    }\r\n                }\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"GasSensor:001\",\r\n            \"type\": \"GasSensor\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"gasConcentration\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 150,\r\n                \"metadata\": {\r\n                    \"unit\": {\r\n                        \"type\": \"Text\",\r\n                        \"value\": \"PPM\"\r\n                    }\r\n                }\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"Lidar:001\",\r\n            \"type\": \"Lidar\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"lidarData\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"Detailed lidar data\"\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"GPS:001\",\r\n            \"type\": \"GPS\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"latitude\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 40.7128\r\n            },\r\n            \"longitude\": {\r\n                \"type\": \"Number\",\r\n                \"value\": -74.0060\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"GPS:002\",\r\n            \"type\": \"GPS\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:002\"\r\n            },\r\n            \"latitude\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 43.4938\r\n            },\r\n            \"longitude\": {\r\n                \"type\": \"Number\",\r\n                \"value\": -5.5487\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-30T13:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"WindSpeedSensor:001\",\r\n            \"type\": \"WindSpeedSensor\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"windSpeed\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 15,\r\n                \"metadata\": {\r\n                    \"unit\": {\r\n                        \"type\": \"Text\",\r\n                        \"value\": \"m/s\"\r\n                    }\r\n                }\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"UVSensor:001\",\r\n            \"type\": \"UVSensor\",\r\n            \"refDrone\": {\r\n                \"type\": \"Relationship\",\r\n                \"value\": \"urn:ngsi-ld:Drone:001\"\r\n            },\r\n            \"uvIndex\": {\r\n                \"type\": \"Number\",\r\n                \"value\": 8\r\n            },\r\n            \"status\": {\r\n                \"type\": \"Text\",\r\n                \"value\": \"OK\"\r\n            },\r\n            \"TimeInstant\": {\r\n                \"type\": \"DateTime\",\r\n                \"value\": \"2023-11-21T12:00:00Z\"\r\n            }\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/v2/op/update",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"v2",
+								"op",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add IoTA Devices Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Fiware-Service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "Fiware-ServicePath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"devices\": [\r\n    {\r\n      \"device_id\": \"CameraRGB001\",\r\n      \"entity_name\": \"CameraRGB:001\",\r\n      \"entity_type\": \"CameraRGB\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"CameraIR001\",\r\n      \"entity_name\": \"CameraIR:001\",\r\n      \"entity_type\": \"CameraIR\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"TemperatureSensor001\",\r\n      \"entity_name\": \"TemperatureSensor:001\",\r\n      \"entity_type\": \"TemperatureSensor\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" },\r\n        { \"object_id\": \"temperature\", \"name\": \"temperature\", \"type\": \"Number\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"HumiditySensor001\",\r\n      \"entity_name\": \"HumiditySensor:001\",\r\n      \"entity_type\": \"HumiditySensor\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"humidity\", \"name\": \"humidity\", \"type\": \"Number\" },\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"GasSensor001\",\r\n      \"entity_name\": \"GasSensor:001\",\r\n      \"entity_type\": \"GasSensor\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"gasConcentration\", \"name\": \"gasConcentration\", \"type\": \"Number\" },\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"Lidar001\",\r\n      \"entity_name\": \"Lidar:001\",\r\n      \"entity_type\": \"Lidar\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"lidarData\", \"name\": \"lidarData\", \"type\": \"Text\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"GPS001\",\r\n      \"entity_name\": \"GPS:001\",\r\n      \"entity_type\": \"GPS\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"latitude\", \"name\": \"latitude\", \"type\": \"Number\" },\r\n        { \"object_id\": \"longitude\", \"name\": \"longitude\", \"type\": \"Number\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"GPS002\",\r\n      \"entity_name\": \"GPS:002\",\r\n      \"entity_type\": \"GPS\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"latitude\", \"name\": \"latitude\", \"type\": \"Number\" },\r\n        { \"object_id\": \"longitude\", \"name\": \"longitude\", \"type\": \"Number\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"WindSpeedSensor001\",\r\n      \"entity_name\": \"WindSpeedSensor:001\",\r\n      \"entity_type\": \"WindSpeedSensor\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" },\r\n        { \"object_id\": \"windSpeed\", \"name\": \"windSpeed\", \"type\": \"Number\" }\r\n      ]\r\n    },\r\n    {\r\n      \"device_id\": \"UVSensor001\",\r\n      \"entity_name\": \"UVSensor:001\",\r\n      \"entity_type\": \"UVSensor\",\r\n      \"attributes\": [\r\n        { \"object_id\": \"lastUpdate\", \"name\": \"lastUpdate\", \"type\": \"DateTime\" },\r\n        { \"object_id\": \"refDrone\", \"name\": \"refDrone\", \"type\": \"Relationship\" },\r\n        { \"object_id\": \"status\", \"name\": \"status\", \"type\": \"Text\" },\r\n        { \"object_id\": \"uvIndex\", \"name\": \"uvIndex\", \"type\": \"Number\" }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{iota_port}}/iot/devices",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{iota_port}}",
+							"path": [
+								"iot",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription GPS Monitor Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GPS changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GPS\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"latitude\",\"longitude\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription GPS IoT Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GPS changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GPS\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"latitude\",\"longitude\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/iotdevices\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription GPS MAP Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GPS changes to show FlightRoute\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GPS\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"latitude\",\"longitude\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/maphub\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription GPS QL Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GPS changes on CrateDB\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GPS\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"latitude\", \"longitude\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"http://fiware-quantumleap:{{quantumleap_port}}/v2/notify\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Temp Monitor Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all TemperatureSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"TemperatureSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Temp IoT Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all TemperatureSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"TemperatureSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/iotdevices\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Temp QL Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all TemperatureSensor changes on CrateDB\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"TemperatureSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"http://fiware-quantumleap:{{quantumleap_port}}/v2/notify\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Gas Monitor Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GasSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GasSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Gas IoT Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GasSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GasSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/iotdevices\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Gas QL Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all GasSensor changes on CrateDB\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"GasSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"http://fiware-quantumleap:{{quantumleap_port}}/v2/notify\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription UV Monitor Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all UVSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"UVSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription UV IoT Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all UVSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"UVSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/iotdevices\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription UV QL Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all UVSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"UVSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"http://fiware-quantumleap:{{quantumleap_port}}/v2/notify\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Humidity Monitor Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all HumiditySensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"HumiditySensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Humidity IoT Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all HumiditySensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"HumiditySensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/iotdevices\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription Humidity QL Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all HumiditySensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"HumiditySensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"http://fiware-quantumleap:{{quantumleap_port}}/v2/notify\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription WindSpeed Monitor Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all WindSpeedSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"WindSpeedSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/monitor\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription WindSpeed IoT Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all WindSpeedSensor changes\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"WindSpeedSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"{{app_endpoint}}:{{port}}/iotdevices\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subscription WindSpeed QL Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "fiware-service",
+								"value": "openiot",
+								"type": "text"
+							},
+							{
+								"key": "fiware-servicepath",
+								"value": "/project",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Notify me of all WindSpeedSensor changes on CrateDB\",\r\n    \"subject\": {\r\n        \"entities\": [\r\n            {\r\n                \"idPattern\": \".*\",\r\n                \"type\": \"WindSpeedSensor\"\r\n            }\r\n        ],\r\n        \"condition\": {\r\n            \"attrs\": [\r\n                \"reading\",\r\n                \"status\"\r\n            ]\r\n        }\r\n    },\r\n    \"notification\": {\r\n        \"http\": {\r\n            \"url\": \"http://fiware-quantumleap:{{quantumleap_port}}/v2/notify\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1026/v2/subscriptions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1026",
+							"path": [
+								"v2",
+								"subscriptions",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check",
+			"item": [
+				{
+					"name": "Orion Context Broker executing test Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{orion_port}}/version",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{orion_port}}",
+							"path": [
+								"version"
+							]
+						},
+						"description": "\n# Version Endpoint\n\nThis endpoint allows you to retrieve the version information of the Orion system.\n\n## Request\n\n- Method: GET\n- URL: `{{host}}:{{orion_port}}/version`\n\n## Response\n\n- Status: 200 OK\n- Body:\n\n```json\n{\n    \"orion\": {\n        \"version\": \"\",\n        \"uptime\": \"\",\n        \"git_hash\": \"\",\n        \"compile_time\": \"\",\n        \"compiled_by\": \"\",\n        \"compiled_in\": \"\",\n        \"release_date\": \"\",\n        \"machine\": \"\",\n        \"doc\": \"\",\n        \"libversions\": {\n            \"boost\": \"\",\n            \"libcurl\": \"\",\n            \"libmosquitto\": \"\",\n            \"libmicrohttpd\": \"\",\n            \"openssl\": \"\",\n            \"rapidjson\": \"\",\n            \"mongoc\": \"\",\n            \"bson\": \"\"\n        }\n    }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Check QL Version Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{quantumleap_port}}/version",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{quantumleap_port}}",
+							"path": [
+								"version"
+							]
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve the version information.\n\nThe request does not include a request body.\n\n### Response\n- Status: 200\n- Body:\n    ```json\n    {\n        \"version\": \"\"\n    }\n    ```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "CrateDB Schema Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"stmt\":\"SHOW SCHEMAS\"}"
+						},
+						"url": {
+							"raw": "{{host}}:{{cratedb_port}}/_sql",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{cratedb_port}}",
+							"path": [
+								"_sql"
+							]
+						},
+						"description": "\nThis endpoint is used to make an HTTP POST request to execute SQL statements on the specified host and port. The request should include a JSON payload in the raw request body type with the SQL statement to be executed.\n\n### Request Body\n- `stmt`: (string) The SQL statement to be executed.\n\n### Response\n- Status: 200 OK\n- `cols`: (array) An array of column names returned in the result set.\n- `rows`: (array) An array of rows containing the result set data.\n- `rowcount`: (number) The number of rows affected by the SQL statement.\n- `duration`: (number) The duration of the SQL statement execution in milliseconds.\n\n"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

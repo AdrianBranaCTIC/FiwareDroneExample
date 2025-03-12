@@ -4,11 +4,11 @@ version: '3'
 
 vars:
   ENV_FILE: .env
-  POSTMAN_COLLECTION: postman_collection.json
-  POSTMAN_ENVIRONMENT: postman_environment.json
+  POSTMAN_COLLECTION: FIWARE PoC DATA.postman_collection
+  POSTMAN_ENVIRONMENT: Fiware.postman_environment.json
 
 tasks:
-   deploy:
+  deploy:
     desc: Despliega la aplicación y los servicios subyacentes necesarios para su correcto funcionamiento.
     cmds:
       - echo "Desplegando la aplicación..."
@@ -27,12 +27,13 @@ tasks:
     desc: Inicializa la estructura de datos y los datos base en Postman.
     cmds:
       - echo "Inicializando datos..."
-      - newman run {{.POSTMAN_COLLECTION}} --folder "Add Entities" --environment {{.POSTMAN_ENVIRONMENT}}
-      - newman run {{.POSTMAN_COLLECTION}} --folder "Subscriptions" --environment {{.POSTMAN_ENVIRONMENT}}
-      - newman run {{.POSTMAN_COLLECTION}} --folder "IoT" --environment {{.POSTMAN_ENVIRONMENT}}
-      - newman run {{.POSTMAN_COLLECTION}} --folder "IoT Agent" --environment {{.POSTMAN_ENVIRONMENT}}
-
+      - newman run {{.POSTMAN_COLLECTION}} --folder "Init" --environment {{.POSTMAN_ENVIRONMENT}}
     silent: false
+
+  up:
+    desc: Despliega la aplicación y los servicios subyacentes necesarios para su correcto funcionamiento, teniendo en cuenta que las instancias relativas a los volúmenes de datos ya habían sido inicializadas y contienen toda la información de contexto.
+    cmds:
+      - docker compose --env-file {{.ENV_FILE}} up --build -d
 
   start:
     desc: Inicia la aplicación.
@@ -64,4 +65,4 @@ tasks:
   check_services:
     desc: Comprueba el estado de los servicios.
     cmds:
-      - newman run {{.POSTMAN_COLLECTION}} --folder "Healthcheck" --environment {{.POSTMAN_ENVIRONMENT
+      - newman run {{.POSTMAN_COLLECTION}} --folder "Check" --environment {{.POSTMAN_ENVIRONMENT}}
