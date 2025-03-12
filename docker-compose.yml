@@ -19,16 +19,8 @@ services:
         ports:
             - "4061:4061"
             - "7896:7896"
-        environment:
-            - "IOTA_CB_HOST=orion"
-            - "IOTA_CB_PORT=1026"
-            - "IOTA_NORTH_PORT=4061"
-            - "IOTA_REGISTRY_TYPE=mongodb"
-            - "IOTA_MONGO_HOST=mongodb"
-            - "IOTA_MONGO_PORT=27017"
-            - "IOTA_MONGO_DB=iotagent-ul"
-            - "IOTA_HTTP_PORT=7896"
-            - "IOTA_PROVIDER_URL=http://iot-agent:4061"
+        env_file:
+            - .env
 
     mongodb:
         image: mongo:4.2
@@ -44,13 +36,14 @@ services:
         image: fiware/orion
         hostname: orion
         container_name: fiware-orion
+        restart: always
         depends_on:
             - mongodb
         expose:
             - "1026"
         ports:
             - "1026:1026"
-        command: -dbhost mongodb
+        command: -dbURI mongodb://mongodb:27017
 
     crate-db:
         image: crate:5.5.0
@@ -68,8 +61,8 @@ services:
               "-Chttp.cors.allow-origin=*" ,
               "-Cdiscovery.type=single-node"
               ]          
-        environment:
-            - CRATE_HEAP_SIZE=2g # see https://crate.io/docs/crate/howtos/en/latest/deployment/containers/docker.html#troubleshooting
+        env_file:
+            - .env
         volumes:
             - crate-db:/data
 
@@ -82,8 +75,8 @@ services:
             - "8668:8668"
         depends_on:
             - crate-db
-        environment:
-            - CRATE_HOST=crate-db
+        env_file:
+            - .env
         healthcheck:
             test: curl --fail -s http://quantumleap:8668/version || exit 1
  
@@ -94,8 +87,8 @@ services:
             - crate-db
         ports:
             - "3003:3000"
-        environment:
-            - GF_INSTALL_PLUGINS=orchestracities-map-panel,grafana-clock-panel,grafana-worldmap-panel
+        env_file:
+            - .env
         volumes:
             - grafana:/var/lib/grafana
 
@@ -108,9 +101,7 @@ services:
             - "3000"
         ports:
             - "3000:3000"
-        environment:
-            - "BASEPATH=http://orion:1026/v2"
-            - "PORT=3000"
-            - "BASEPATHIOTA=iot-agent"
+        env_file:
+            - .env
         volumes:
             - fiware-drones-app:/usr/src/app
