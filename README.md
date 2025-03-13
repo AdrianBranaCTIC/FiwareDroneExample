@@ -51,10 +51,10 @@ cd FiwareDroneExample
 task --list
 ```
 
-2. Ejecuta la siguiente task según el estado de tu entorno:
+> [!IMPORTANT]
+> El archivo `.env` no se incluye por motivos de seguridad, quien lo despliegue debería generarlo con los parámetros concretos de su entorno, sin embargo, y con objeto de facilitar el despliegue y prueba del programa, se incluye uno de ejemplo con el nombre `example_.env` que es completamente funcional, por lo que con renombrarlo a `.env` bastaría para desplegar.
 
-    > [!IMPORTANT]
-    > El archivo `.env` no se incluye por motivos de seguridad, quien lo despliegue debería generarlo con los parámetros concretos de su entorno, sin embargo, y con objeto de facilitar el despliegue y prueba del programa, se incluye uno de ejemplo con el nombre `example_.env` que es completamente funcional, por lo que con renombrarlo a `.env` bastaría para desplegar.
+2. Ejecuta la siguiente task según el estado de tu entorno:
 
     - Si ya hubiese sido cargada toda la información de contexto y estructura de datos previamente:
     ```sh
